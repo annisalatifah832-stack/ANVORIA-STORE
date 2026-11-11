@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANVORIA STORE</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #fff0f5;
+            margin: 0;
+            color: #74334f;
+        }
+
+        header {
+            background: #ff91b8;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        nav {
+            background: #ffb6ce;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+            font-weight: bold;
+        }
+
+        .banner {
+            text-align: center;
+            padding: 50px 15px;
+            background: #ffe0eb;
+        }
+
+        .produk {
+            text-align: center;
+            padding: 25px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            width: 200px;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 3px 8px #e8b4c7;
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        button {
+            background: #ed669a;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        #keranjang {
+            background: #ffe0eb;
+            margin: 25px;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        footer {
+            background: #ff91b8;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎀 ANVORIA STORE 🎀</h1>
+    <p>Mukena Cantik dan Kekinian</p>
+</header>
+
+<nav>
+    <a href="#home">Home</a>
+    <a href="#produk">Produk</a>
+    <a href="#keranjang">Keranjang</a>
+</nav>
+
+<section class="banner" id="home">
+    <h2>Welcome to ANVORIA STORE!</h2>
+    <p>Temukan Mukena Favoritmu di Sini 💗</p>
+    <button onclick="location.href='#produk'">
+        Belanja Sekarang
+    </button>
+</section>
+
+<section class="produk" id="produk">
+    <h2>Our Products</h2>
+
+    <div class="container">
+
+        <div class="card">
+            <img src="https://pin.it/2WOJZp2nm">
+            <h3>Mukena Ungu</h3>
+            <p>Rp115.000</p>
+            <button onclick="tambah('Mukena Ungu',115000)">
+                Tambah Keranjang
+            </button>
+        </div>
+
+        <div class="card">
+            <img src="https://pin.it/OOPM3EkOK">
+            <h3>Mukena Hijau</h3>
+            <p>Rp120.000</p>
+            <button onclick="tambah('Mukena Hijau',120000)">
+                Tambah Keranjang
+            </button>
+        </div>
+
+        <div class="card">
+            <img src="https://pin.it/22llu4wik">
+            <h3>Mukena Pastel</h3>
+            <p>Rp115.000</p>
+            <button onclick="tambah('Mukena Pastel',115000)">
+                Tambah Keranjang
+            </button>
+        </div>
+
+    </div>
+</section>
+
+<section id="keranjang">
+    <h2>🛒 Keranjang Belanja</h2>
+    <ul id="daftar"></ul>
+    <h3>Total: Rp<span id="total">0</span></h3>
+
+    <button onclick="beli()">Beli Sekarang</button>
+</section>
+
+<footer>
+    <p>© 2026 ANVORIA STORE | Fashion Shop 💗</p>
+</footer>
+
+<script>
+    let keranjang = [];
+
+    function tambah(nama, harga) {
+        keranjang.push({nama, harga});
+        tampilkan();
+        alert("Produk berhasil ditambahkan!");
+    }
+
+    function tampilkan() {
+        let daftar = document.getElementById("daftar");
+        let total = 0;
+
+        daftar.innerHTML = "";
+
+        keranjang.forEach((item, index) => {
+            total += item.harga;
+
+            daftar.innerHTML += `
+                <li>
+                    ${item.nama} - Rp${item.harga.toLocaleString("id-ID")}
+                    <button onclick="hapus(${index})">Hapus</button>
+                </li>
+            `;
+        });
+
+        document.getElementById("total").innerText =
+            total.toLocaleString("id-ID");
+    }
+
+    function hapus(index) {
+        keranjang.splice(index, 1);
+        tampilkan();
+    }
+
+    function beli() {
+        if (keranjang.length === 0) {
+            alert("Keranjang masih kosong!");
+            return;
+        }
+
+        let pesan = "Halo ANVORIA STORE, saya ingin memesan:\n";
+
+        keranjang.forEach(item => {
+            pesan += "- " + item.nama + "\n";
+        });
+
+        let nomor = "6281234567890";
+
+        window.open(
+            "https://wa.me/" + nomor + "?text=" +
+            encodeURIComponent(pesan),
+            "_blank"
+        );
+    }
+</script>
+
+</body>
+</html>
